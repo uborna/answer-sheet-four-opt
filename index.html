@@ -61,8 +61,8 @@ body{background-size:300% 300%;animation:bg 20s ease infinite}@keyframes bg{50%{
 .timer.live{animation:pl 2s infinite}@keyframes pl{0%{box-shadow:0 0 0 0 rgba(236,72,153,.6)}70%,100%{box-shadow:0 0 0 16px rgba(236,72,153,0)}}
 .q.no{background:rgba(244,63,94,.13);border-inline-start-color:var(--bad)}
 .q.ok .n{background:var(--ok);color:#fff}.q.no .n{background:var(--bad);color:#fff}
-.b{position:relative}.b.key{outline:3px solid #10b981;outline-offset:2px}
-.b.key::after{content:"✓";position:absolute;top:-10px;left:-8px;width:18px;height:18px;border-radius:50%;background:#10b981;color:#fff;font-size:.7rem;line-height:1;display:grid;place-items:center;box-shadow:0 0 0 2px var(--card)}
+.b.key{background:#10b981!important;color:#fff!important;border-color:#047857!important;box-shadow:0 0 0 4px rgba(16,185,129,.35)!important;font-size:.75rem;transform:scale(1.12)}
+.q.no .b.on{background:#f43f5e;border-color:#f43f5e;color:#fff}
 .ring{--p:0;width:140px;height:140px;border-radius:50%;display:grid;place-items:center;margin-top:6px;background:conic-gradient(var(--ac2),var(--ac),var(--ok) calc(var(--p)*1%),var(--n) 0);position:relative}
 .ring::before{content:"";position:absolute;inset:11px;border-radius:50%;background:var(--card)}
 .ring .pct{position:relative;font-size:1.6rem}
@@ -226,7 +226,7 @@ function render(){
 function update(q,n){
   const g=graded&&key[n]&&ans[n];
   q.className='q'+(g?(ans[n]===key[n]?' done ok':' no'):ans[n]?' done':'')+(flags[n]?' fl':'');
-  [...q.querySelectorAll('.b')].forEach((b,k)=>b.className='b c'+(k+1)+(ans[n]===k+1?' on':'')+(key[n]===k+1&&(keyMode||graded)?' key':''));
+  [...q.querySelectorAll('.b')].forEach((b,k)=>{const ky=key[n]===k+1&&(keyMode||graded);b.className='b c'+(k+1)+(ans[n]===k+1?' on':'')+(ky?' key':'');b.textContent=(ky?'✓':'')+fa(k+1)});
   stats();
 }
 function answered(){const L=list(),t=total();let a=0;for(let i=0;i<t;i++)if(ans[L[i]])a++;return a}
